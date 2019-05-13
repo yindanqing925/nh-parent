@@ -1,5 +1,10 @@
 package org.nh.springboot.user.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.nh.common.cache.Cache;
+import org.nh.common.cache.CachekeyPrefix;
 import org.nh.springboot.user.dao.UserDao;
 import org.nh.springboot.user.model.User;
 import org.nh.springboot.user.service.UserService;
@@ -12,8 +17,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userInfoDao;
 
+    @Autowired
+    private Cache cache;
+
     @Override
     public User getUserInfoById(Integer id) {
-        return userInfoDao.selectByPrimaryKey(id);
+        String idStr = ObjectUtils.toString(id);
+        if(StringUtils.isBlank(idStr)){
+            return null;
+        }
+        String userStr;
+        if(StringUtils.isBlank(userStr = cache.hget(CachekeyPrefix.USER_BEAN, idStr))){
+            User user = userInfoDao.selectByPrimaryKey(id);
+            cache.hset(CachekeyPrefix.USER_BEAN, idStr, JSON.toJSONString(user));
+            return user;
+        }
+        return JSON.parseObject(userStr, User.class);
     }
 }

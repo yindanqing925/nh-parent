@@ -65,8 +65,7 @@ public class DataSourceConfig {
     @Bean(name = DATASOURCE)
     public DataSource dataSource() throws SQLException {
         DruidDataSource dataSource = new DruidDataSource();
-        //数据库连接属性
-        dataSource.setUrl("jdbc:mysql://192.168.165.128/nh?useUnicode=true&characterEncoding=utf-8");
+        dataSource.setUrl("jdbc:mysql://192.168.165.128:3306/nh?useUnicode=true&characterEncoding=UTF8");
         dataSource.setUsername("nh");
         dataSource.setPassword("123456");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
