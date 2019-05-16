@@ -3,6 +3,10 @@ spring:
     name: spring-boot
   profiles:
     active: dev
+  thymeleaf:
+    prefix: classpath:/views/
+    suffix: .html
+
 
 server:
   port: 8085
