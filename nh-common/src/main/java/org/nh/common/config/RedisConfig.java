@@ -30,7 +30,7 @@ public class RedisConfig {
         poolConfig.setMaxIdle(5000);
         poolConfig.setMaxWaitMillis(10000);
         poolConfig.setTestOnBorrow(true);
-        return new JedisPool(poolConfig, "192.168.165.168", 6379, 60000, "cp5aDkRH");
+        return new JedisPool(poolConfig, "47.93.33.137", 6379, 60000, "cp5aDkRH");
 
     }
 

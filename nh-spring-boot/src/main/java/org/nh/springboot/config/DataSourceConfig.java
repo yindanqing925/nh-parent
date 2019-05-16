@@ -65,16 +65,16 @@ public class DataSourceConfig {
     @Bean(name = DATASOURCE)
     public DataSource dataSource() throws SQLException {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl("jdbc:mysql://192.168.165.128:3306/nh?useUnicode=true&characterEncoding=UTF8");
+        dataSource.setUrl("jdbc:mysql://47.93.33.137:3306/nh?useUnicode=true&characterEncoding=UTF8");
         dataSource.setUsername("nh");
-        dataSource.setPassword("123456");
+        dataSource.setPassword("OMM460kFL0bkvrkV");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         //设置扫描属性
         //设置连接池属性
         dataSource.setInitialSize(5);
         dataSource.setMinIdle(5);
         dataSource.setMaxActive(20);
-        dataSource.setMaxActive(60*1000);
+        dataSource.setMaxWait(60*1000);
         dataSource.setTimeBetweenEvictionRunsMillis(60*1000);
         dataSource.setValidationQuery("SELECT 'x'");
         dataSource.setTestWhileIdle(true);
