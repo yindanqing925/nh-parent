@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author yindanqing
+ * @date 2019/5/26 23:11
+ * @description controller层异常拦截
+ */
 @RestControllerAdvice
 public class BusinessExceptionHandler {
 
