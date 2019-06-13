@@ -10,6 +10,10 @@ import org.nh.springboot.user.model.User;
 import org.nh.springboot.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserInfoById(Integer id) {
-        String idStr = ObjectUtils.toString(id);
+        /*String idStr = ObjectUtils.toString(id);
         if(StringUtils.isBlank(idStr)){
             return null;
         }
@@ -32,6 +36,20 @@ public class UserServiceImpl implements UserService {
             cache.hset(CachekeyPrefix.USER_BEAN, idStr, JSON.toJSONString(user));
             return user;
         }
-        return JSON.parseObject(userStr, User.class);
+        return JSON.parseObject(userStr, User.class);*/
+        User user = userInfoDao.selectByPrimaryKey(id);
+        System.out.println(JSON.toJSONString(user));
+        return user;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class}, isolation = Isolation.READ_COMMITTED)
+    public int modifyUser(User user) {
+        return userInfoDao.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public int insertbatch(Collection<User> users) {
+        return userInfoDao.insertbatch(users);
     }
 }

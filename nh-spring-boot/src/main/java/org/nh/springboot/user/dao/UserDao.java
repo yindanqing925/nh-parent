@@ -1,6 +1,9 @@
 package org.nh.springboot.user.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.nh.springboot.user.model.User;
+
+import java.util.Collection;
 
 public interface UserDao {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface UserDao {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int insertbatch(@Param(value = "users") Collection<User> users);
 }

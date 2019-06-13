@@ -139,4 +139,19 @@
       TIPS = #{tips,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="insertbatch" parameterType="java.util.Collection">
+    insert into user (ID, USERNNAME, PASSWORD,
+      BALANCE, CREATED, UPDATED,
+      ADRESS, PHONE, TIPS
+      )
+    values
+     <foreach collection="users" index="index" item="item" separator=",">
+       (#{item.id,jdbcType=INTEGER}, #{item.usernname,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR},
+       #{item.balance,jdbcType=DOUBLE}, #{item.created,jdbcType=TIMESTAMP}, #{item.updated,jdbcType=TIMESTAMP},
+       #{item.adress,jdbcType=INTEGER}, #{item.phone,jdbcType=VARCHAR}, #{item.tips,jdbcType=VARCHAR}
+       )
+     </foreach>
+  </insert>
+
 </mapper>
